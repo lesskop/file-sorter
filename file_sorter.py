@@ -1,6 +1,7 @@
 import os
 
-main_path = 'd:\\down'
+folder_path = 'disk:\\folder\\another-folder'
+# folder_path = 'd:\\downloads'
 
 # key names will be folder names!
 extensions = {
@@ -28,71 +29,68 @@ extensions = {
 
     'gif': ['gif'],
 
-    'exe': ['exe'],
-
     'bat': ['bat'],
 
     'apk': ['apk']
+
+    # 'exe': ['exe'],
+
+    # 'folder-name': ['extension-name', 'another-extension']
 }
 
 
 # also creates folders from dictionary keys
-def create_folders_from_list(folder_path, folder_names):
-    for folder in folder_names:
-        if not os.path.exists(f'{folder_path}\\{folder}'):
-            os.mkdir(f'{folder_path}\\{folder}')
+def create_folders_from_list(folder_names):
+    for fn in folder_names:
+        if not os.path.exists(os.path.join(folder_path, fn)):
+            print("Creating", fn, 'folder\n')
+            os.mkdir(os.path.join(folder_path, fn))
 
 
-def get_subfolder_paths(folder_path) -> list:
-    subfolder_paths = [f.path for f in os.scandir(folder_path) if f.is_dir()]
-
-    return subfolder_paths
-
-
-def get_subfolder_names(folder_path) -> list:
-    subfolder_paths = get_subfolder_paths(folder_path)
-    subfolder_names = [f.split('\\')[-1] for f in subfolder_paths]
-
-    return subfolder_names
+def get_subfolder_paths():
+    for fp in os.scandir(folder_path):
+        if fp.is_dir():
+            yield fp.path
 
 
-def get_file_paths(folder_path) -> list:
-    file_paths = [f.path for f in os.scandir(folder_path) if not f.is_dir()]
-
-    return file_paths
-
-
-def get_file_names(folder_path) -> list:
-    file_paths = [f.path for f in os.scandir(folder_path) if not f.is_dir()]
-    file_names = [f.split('\\')[-1] for f in file_paths]
-
-    return file_names
+def get_file_paths():
+    for fp in os.scandir(folder_path):
+        if not fp.is_dir():
+            yield fp.path
 
 
-def sort_files(folder_path):
-    file_paths = get_file_paths(folder_path)
-    ext_list = list(extensions.items())
+def sort_files():
+    file_paths = get_file_paths()
+    ext_items_list = list(extensions.items())
 
-    for file_path in file_paths:
-        extension = file_path.split('.')[-1]
-        file_name = file_path.split('\\')[-1]
+    for fp in file_paths:
+        extension = fp.split('.')[-1]
+        file_name = os.path.split(fp)[-1]
 
-        for dict_key_int in range(len(ext_list)):
-            if extension in ext_list[dict_key_int][1]:
-                print(f'Moving {file_name} in {ext_list[dict_key_int][0]} folder\n')
-                os.rename(file_path, f'{main_path}\\{ext_list[dict_key_int][0]}\\{file_name}')
+        for dict_key in enumerate(ext_items_list):
+            subfolder_name = ext_items_list[dict_key[0]][0]
+            ext_list = ext_items_list[dict_key[0]][1]
+
+            if extension in ext_list:
+                print(f'Moving {file_name} in {subfolder_name} folder\n')
+                # os.rename(fp, os.path.join(folder_path, subfolder_name, file_name))
 
 
-def remove_empty_folders(folder_path):
-    subfolder_paths = get_subfolder_paths(folder_path)
+def remove_empty_folders():
+    subfolder_paths = get_subfolder_paths()
 
-    for p in subfolder_paths:
-        if not os.listdir(p):
-            print('Deleting empty folder:', p.split('\\')[-1], '\n')
-            os.rmdir(p)
+    for sp in subfolder_paths:
+        if not os.listdir(sp):
+            print('Deleting', os.path.basename(sp), 'folder\n')
+            os.rmdir(sp)
 
 
 if __name__ == "__main__":
-    create_folders_from_list(main_path, extensions)
-    sort_files(main_path)
-    remove_empty_folders(main_path)
+    print("# # # Creating folders # # #\n")
+    create_folders_from_list(extensions)
+
+    print("# # # Sorting files # # #\n")
+    sort_files()
+
+    print("# # # Removing empty folders # # #\n")
+    remove_empty_folders()

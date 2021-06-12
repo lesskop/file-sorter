@@ -8,7 +8,7 @@
 Python script for sorting files into folders with flexible configuration
 
 ## Quick start
-***
+
 Open **file_sorter.py** and write down the path to the directory where the sort will be performed:
 
 ```python

@@ -5,36 +5,46 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/lesskop/file-sorter)
 ![Stars](https://img.shields.io/github/stars/lesskop/file-sorter?style=social)
 
-Python script for sorting files into folders with flexible configuration
+Python script for sorting files into folders by extensions
 
 ## Quick start
 
-Open **file_sorter.py** and write down the path to the directory where the sort will be performed:
+1. Open [config.py](config.py) and write the path to the folder where the sort will be performed:
 
 ```python
-folder_path = 'disk:\\folder\\another-folder'
-# folder_path = 'd:\\downloads'
+FOLDER_PATH = Path('drive:/folder/another-folder/yet-another-folder')
 ```
 
-Set up a dictionary for your sorting method.
+Example
 
-**Key** - folder name, **value** - list of file extensions for this folder.
 ```python
-# key names will be folder names!
-extensions = {
+FOLDER_PATH = Path('D:/Downloads')
+```
 
-    'video': ['mp4', 'mov', 'avi', 'mkv'],
+2. Set up a dictionary `SUBFOLDER_NAME_TO_EXTENSIONS` for your sorting method.
 
-    'audio': ['mp3', 'wav', 'ogg'],
+**Key** - subfolder name, **value** - tuple of file extensions for this subfolder.
 
-    'image': ['jpg', 'png', 'bmp', 'ai', 'psd', 'ico', 'jpeg', 'svg'],
-
-    'archive': ['zip', 'rar', '7z', 'z', 'gz'],
-
-    # 'folder-name': ['extension-name', 'another-extension']
+```python
+SUBFOLDER_NAME_TO_EXTENSIONS = {
+    'video': ('mp4', 'mov', 'avi', 'mkv', 'wmv', 'mpg', 'mpeg', 'm4v', 'h264'),
+    'audio': ('mp3', 'wav', 'ogg', 'flac', 'aif', 'mid', 'midi', 'wma'),
+    'image': ('jpg', 'png', 'bmp', 'jpeg', 'svg', 'tif', 'tiff'),
+    'archive': ('zip', 'rar', '7z', 'z', 'gz', 'pkg', 'deb'),
+    'text': ('pdf', 'txt', 'doc', 'docx', 'rtf', 'odt'),
+    'spreadsheet': ('xlsx', 'xls', 'xlsm'),
+    'presentation': ('pptx', 'ppt'),
+    'book': ('fb2', 'epub', 'mobi'),
+    'gif': ('gif',),
+    # 'subfolder-name': ('extension', 'another-extension')
 }
 ```
-***
-[YouTube](https://youtu.be/kzVqBtrlr9o)
 
-[Habr](https://habr.com/ru/post/562362/)
+---
+## Content
+
+I did a general refactoring for this project so this content is out of date.
+
+[YouTube video](https://youtu.be/kzVqBtrlr9o)
+
+[Статья на Хабре](https://habr.com/ru/post/562362/)

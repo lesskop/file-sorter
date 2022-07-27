@@ -40,6 +40,22 @@ SUBFOLDER_NAME_TO_EXTENSIONS = {
 }
 ```
 
+## Logs
+
+You can check the logs in `logs/file_sorter.log` after script execution.
+
+```
+[18:08:01] INFO - Sorting files by extensions in d:\downloads
+[18:08:01] INFO - winrar.zip ---> archive/winrar.zip
+[18:08:01] INFO - cute cat.png ---> image/cute cat.png
+[18:08:01] INFO - dissertation.docx ---> text/dissertation.docx
+[18:08:01] INFO - Morbius.mkv ---> video/Morbius.mkv
+[18:08:01] INFO - mvp.pptx ---> presentation/mvp.pptx
+[18:08:01] INFO - salary.xlsx ---> spreadsheet/salary.xlsx
+[18:08:01] INFO - there are no passwords.txt ---> text/there are no passwords.txt
+[18:08:01] INFO - Script execution time: 0.01600000000144064 seconds
+```
+
 ---
 ## Content
 

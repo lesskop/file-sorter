@@ -17,6 +17,7 @@ SUBFOLDER_NAME_TO_EXTENSIONS = {
     # 'subfolder-name': ('extension', 'another-extension')
 }
 
+LOGS_FOLDER = Path('logs')
 
 SUBFOLDER_NAMES = tuple(SUBFOLDER_NAME_TO_EXTENSIONS.keys())
 EXTENSIONS = tuple(chain.from_iterable(

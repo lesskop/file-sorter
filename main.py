@@ -1,8 +1,17 @@
 from typing import Iterable, Union
+import logging
 import time
 import os
 
 from config import *
+
+LOGS_FOLDER.mkdir() if not LOGS_FOLDER.exists() else None
+
+logging.basicConfig(filename=f"logs/file_sorter.log",
+                    level=logging.DEBUG,
+                    format='[%(asctime)s] %(levelname)s - %(message)s',
+                    datefmt='%H:%M:%S',
+                    encoding='utf-8')
 
 
 class Folder:
@@ -29,17 +38,21 @@ class Folder:
                 subfolder_name = get_subfolder_name_by_extension(extension)
                 self._create_subfolder(subfolder_name)
 
-                # Move file to subfolder
-                path.rename(Path(self.path, subfolder_name, path.name))
+                new_path = Path(self.path, subfolder_name, path.name)
+                logging.info(f'{path.name} ---> {"/".join(new_path.parts[-2:])}')
+                path.rename(new_path)
 
 
 def main() -> None:
     folder = Folder(FOLDER_PATH)
     print('Sorting files by extensions in', FOLDER_PATH)
+    logging.info(f'Sorting files by extensions in {FOLDER_PATH}')
     folder.sort_files_by_extensions()
 
 
 if __name__ == "__main__":
     start_time = time.monotonic()
     main()
-    print(f'Script execution time: {time.monotonic() - start_time} seconds')
+    end_time = time.monotonic() - start_time
+    print(f'Script execution time: {end_time} seconds')
+    logging.info(f'Script execution time: {end_time} seconds')

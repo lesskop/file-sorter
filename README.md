@@ -5,6 +5,10 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/lesskop/file-sorter)
 ![Stars](https://img.shields.io/github/stars/lesskop/file-sorter?style=social)
 
+<a href="https://www.youtube.com/watch?v=kzVqBtrlr9o">
+    <img alt="YouTube Video Views" src="https://img.shields.io/youtube/views/kzVqBtrlr9o?style=social">
+</a>
+
 Python script for sorting files into folders by extensions
 
 ## Quick start
@@ -57,6 +61,7 @@ You can check the logs in `logs/file_sorter.log` after script execution.
 ```
 
 ---
+
 ## Content
 
 I did a general refactoring for this project so this content is out of date.
